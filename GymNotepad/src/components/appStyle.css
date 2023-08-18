@@ -1,0 +1,52 @@
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.newWorkoutButton {
+    width: 100%;
+    font-size: 2rem;
+    color: black;
+    border: 2px solid black;
+    border-top: none;
+    background-color: rgb(210, 210, 210);
+    margin: 0 0 10px 0;
+    transition-duration: 0.4s;
+
+}
+
+.newWorkoutButton:active {
+    background-color: rgb(160, 160, 160);
+    font-size: 1.8rem;
+}
+
+.nwbUp {
+    border-top-right-radius: 40px;
+    border-top-left-radius: 40px;
+}
+
+.nwbDown {
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+}
+
+.nwbUp:active {
+    border-top-right-radius: 50px;
+    border-top-left-radius: 50px;
+}
+
+.nwbDown:active {
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.switchButton {
+    width: 100%;
+    font-size: 1rem;
+    border: none;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    padding: 0.2rem;
+}

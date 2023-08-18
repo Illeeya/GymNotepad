@@ -1,0 +1,59 @@
+.callendarViewMainContainer {
+    /* height: 100%; */
+    width: 100%;
+    display: grid;
+    grid-template-rows: auto;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.datePickers {
+    width: 100%;
+    height: auto;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 1fr 1fr;
+}
+
+.datePicker {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    border: none;
+
+}
+
+.yearPicker {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-right: 1px solid black;
+}
+
+.monthPicker {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-left: 1px solid black;
+}
+
+
+.callendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, auto);
+    place-items: center;
+    color: aliceblue;
+}
+
+.callendarDay {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    display: grid;
+    place-items: center;
+}
+
+.filledDay {
+    border: 1px dotted #222;
+    background-color: #111;
+
+}
