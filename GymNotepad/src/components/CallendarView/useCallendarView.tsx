@@ -1,13 +1,20 @@
 import "./callendarViewStyle.css";
 import { useDatepickerContext } from "../../context/DatepickerContext";
+import { useWorkoutsContext } from "../../context/WorkoutsContext";
 export default function useCallendarView() {
   const { pickedYear, pickYear, pickedMonth, pickMonth } = useDatepickerContext();
+  const { workouts } = useWorkoutsContext();
 
   function makeCallendar() {
     const grid: JSX.Element[] = [];
     const firstDayOfMonth: Date = new Date(pickedYear, pickedMonth, 1);
     const firstWeekday: number = firstDayOfMonth.getDay() == 0 ? 7 : firstDayOfMonth.getDay();
     const daysInMonth: number = new Date(pickedYear, pickedMonth + 1, 0).getDate();
+    const daysWithWorkout: number[] = workouts
+      .filter((ex) => ex.date.getMonth() === pickedMonth)
+      .map((ex) => ex.date.getDate());
+
+    daysWithWorkout.push(5, 7, 11, 16, 21, 25);
 
     //Weekday names as first row
     for (let i: number = 0; i < 7; i++) {
@@ -19,9 +26,9 @@ export default function useCallendarView() {
     for (let i: number = 1; i < 43; i++) {
       if (i >= daysInMonth + firstWeekday) break;
       if (i < firstWeekday || j > daysInMonth) {
-        grid.push(Day("", false));
+        grid.push(Day(""));
       } else {
-        grid.push(Day(j, true));
+        grid.push(Day(j, true, daysWithWorkout.includes(j)));
         j++;
       }
     }
@@ -38,7 +45,7 @@ export default function useCallendarView() {
       i--
     ) {
       years.push(
-        <option key={crypto.randomUUID()} selected={i == year} value={i}>
+        <option key={crypto.randomUUID()} value={i}>
           {i}
         </option>
       );
@@ -50,6 +57,7 @@ export default function useCallendarView() {
         id="yearPicker"
         className=" datePicker yearPicker"
         onChange={(e) => pickYear(Number(e.target.value))}
+        value={year}
       >
         {years}
       </select>
@@ -62,7 +70,7 @@ export default function useCallendarView() {
 
     for (let i: number = 0; i <= 11; i++) {
       months.push(
-        <option key={crypto.randomUUID()} selected={i == month} value={i}>
+        <option key={crypto.randomUUID()} value={i}>
           {monthsDictionary[i]}
         </option>
       );
@@ -74,6 +82,7 @@ export default function useCallendarView() {
         id="monthPicker"
         className="datePicker monthPicker"
         onChange={(e) => pickMonth(Number(e.target.value))}
+        value={month}
       >
         {months}
       </select>
@@ -83,11 +92,15 @@ export default function useCallendarView() {
   return { makeCallendar, YearPicker, MonthPicker };
 }
 
-const Day = (dayNumer: number | string, filled: boolean) => {
+const Day = (
+  dayNumer: number | string,
+  filled: boolean = false,
+  hasWorkout: boolean = false
+) => {
   return (
     <div
       key={crypto.randomUUID()}
-      className={filled ? "callendarDay filledDay" : "callendarDay emptyDay"}
+      className={`callendarDay ${filled ? "filledDay" : ""} ${hasWorkout ? "workoutDay" : ""}`}
     >
       {dayNumer}
     </div>

@@ -1,31 +1,29 @@
 import { createContext, useContext, useState } from "react";
+import { Workout, WorkoutsContextType } from "./WorkoutsContextTypex";
 
-interface WorkoutsContextType {
-  name: string;
-  changeName: (name: string) => void;
-}
-
-const WorkoutContext = createContext<WorkoutsContextType | null>(null);
+const WorkoutsContext = createContext<WorkoutsContextType | null>(null);
 
 export function useWorkoutsContext() {
-  const context = useContext(WorkoutContext);
+  const context = useContext(WorkoutsContext);
   if (!context) {
-    throw new Error("useWorkoutsContext must be used within a WorkoutsProvider");
+    throw new Error("useWorkoutsContext must be used within a WorkoutsContextProvider");
   }
   return context;
 }
 
-interface WorkoutProviderProps {
+interface WorkoutsContextProviderProps {
   children: React.ReactNode;
 }
-export function WorkoutsProvider({ children }: WorkoutProviderProps) {
-  const [name, setName] = useState<string>("Joseph");
 
-  function changeName(name: string) {
-    setName(name);
+export function WorkoutsContextProvider({ children }: WorkoutsContextProviderProps) {
+  const [workouts, setWorkouts] = useState<Workout[]>([]);
+
+  function changeWorkouts(workout: Workout, action: string) {
+    if (action === "add") setWorkouts((current) => [...current, workout]);
   }
-
   return (
-    <WorkoutContext.Provider value={{ name, changeName }}>{children}</WorkoutContext.Provider>
+    <WorkoutsContext.Provider value={{ workouts, changeWorkouts }}>
+      {children}
+    </WorkoutsContext.Provider>
   );
 }
