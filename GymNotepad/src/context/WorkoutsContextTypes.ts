@@ -5,6 +5,7 @@ export interface WorkoutsContextType {
 }
 
 export interface Workout {
+  id: number;
   type: string;
   date: Date;
 
@@ -12,6 +13,7 @@ export interface Workout {
 }
 
 export interface Exercise {
+  id: number;
   name: string;
   reps: number;
   series: number;

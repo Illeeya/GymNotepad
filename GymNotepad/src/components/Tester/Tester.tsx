@@ -1,4 +1,4 @@
-import { useWorkoutsContext } from "../../context/WorkoutsContext";
+import { useWorkoutsContext } from "../../Context/WorkoutsContext";
 
 export default function Tester() {
   const { name, changeName } = useWorkoutsContext();

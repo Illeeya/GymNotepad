@@ -1,0 +1,27 @@
+.callendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, auto);
+    place-items: center;
+    color: aliceblue;
+}
+
+.callendarDay {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    display: grid;
+    place-items: center;
+}
+
+.filledDay {
+    border: 1px dotted #222;
+    background-color: #111;
+
+}
+
+.workoutDay {
+    font-weight: bold;
+    font-size: 1.2em;
+    border: 2px solid #333
+}

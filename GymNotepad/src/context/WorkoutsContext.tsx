@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { Workout, WorkoutsContextType } from "./WorkoutsContextTypex";
+import { Workout, WorkoutsContextType } from "./WorkoutsContextTypes";
 
 const WorkoutsContext = createContext<WorkoutsContextType | null>(null);
 
