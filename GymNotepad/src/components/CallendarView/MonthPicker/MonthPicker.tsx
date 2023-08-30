@@ -1,5 +1,5 @@
 import { useDatepickerContext } from "../../../Context/DatepickerContext";
-import "./monthPickerStyle.css";
+import style from "./monthPickerStyle.module.css";
 
 const MonthPicker = () => {
   const { pickedMonth, pickMonth } = useDatepickerContext();
@@ -18,7 +18,7 @@ const MonthPicker = () => {
     <select
       name="monthPicker"
       id="monthPicker"
-      className="datePicker monthPicker"
+      className={`${style.datePicker} ${style.monthPicker}`}
       onChange={(e) => pickMonth(Number(e.target.value))}
       value={month}
     >

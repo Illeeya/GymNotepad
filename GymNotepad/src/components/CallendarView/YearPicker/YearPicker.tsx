@@ -1,5 +1,5 @@
 import { useDatepickerContext } from "../../../Context/DatepickerContext";
-import "./yearPickerStyle.css";
+import style from "./yearPickerStyle.module.css";
 
 const YearPicker = () => {
   const { pickedYear, pickYear } = useDatepickerContext();
@@ -22,7 +22,7 @@ const YearPicker = () => {
     <select
       name="yearPicker"
       id="yearPicker"
-      className=" datePicker yearPicker"
+      className={`${style.datePicker} ${style.yearPicker}`}
       onChange={(e) => pickYear(Number(e.target.value))}
       value={year}
     >

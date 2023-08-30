@@ -1,4 +1,4 @@
-import "./callendarStyle.css";
+import style from "./callendarStyle.module.css";
 import { useDatepickerContext } from "../../../Context/DatepickerContext";
 import { useWorkoutsContext } from "../../../Context/WorkoutsContext";
 import { useWorkoutModalContext } from "../../../Context/WorkoutModalContext";
@@ -32,7 +32,7 @@ const Callendar = () => {
       j++;
     }
   }
-  return <div className="callendar">{grid}</div>;
+  return <div className={style.callendar}>{grid}</div>;
 };
 
 const Day = (
@@ -52,7 +52,9 @@ const Day = (
           : undefined
       }
       key={crypto.randomUUID()}
-      className={`callendarDay ${filled ? "filledDay" : ""} ${hasWorkout ? "workoutDay" : ""}`}
+      className={`${style.callendarDay} ${filled ? style.filledDay : ""} ${
+        hasWorkout ? style.workoutDay : ""
+      }`}
     >
       {dayNumer}
     </div>
