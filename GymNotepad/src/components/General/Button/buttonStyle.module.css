@@ -1,0 +1,21 @@
+.myButton {
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    font-family: "Lucida Console", Courier, monospace;
+    font-size: 1rem;
+    color: aliceblue;
+    border: none;
+    width: 100%;
+}
+
+.mySaveButton {
+    background-color: seagreen;
+}
+
+.myConfirmButton {
+    background-color: royalblue;
+}
+
+.myCancelButton {
+    background-color: maroon;
+}

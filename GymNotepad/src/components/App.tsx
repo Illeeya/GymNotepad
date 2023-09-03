@@ -3,7 +3,7 @@ import { useWorkoutModalContext } from "../Context/WorkoutModalContext";
 import { WorkoutsContextProvider } from "../Context/WorkoutsContext";
 import CallendarView from "../Views/CallendarView/CallendarView";
 import ListView from "../Views/ListView/ListView";
-import ModalView from "../Views/ModalView/ModalView";
+import ModalView from "../Views/WorkoutModalView/WorkoutModalView";
 import style from "./appStyle.module.css";
 import { useApp } from "./useApp";
 function App() {

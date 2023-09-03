@@ -1,0 +1,28 @@
+.mainContainer {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+
+}
+
+.generalInput {
+    border: unset;
+    border-radius: 10px;
+    padding: 0.2rem;
+    text-align: center;
+}
+
+.textInput {
+    font-size: 1.2rem;
+    background-color: rgb(178, 178, 178);
+    font-weight: bold;
+}
+
+.dateInput {
+
+    font-size: 1rem;
+    background-color: gray;
+
+}
