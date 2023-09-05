@@ -1,0 +1,74 @@
+.mainContainer {
+    margin: 1rem 0;
+    display: grid;
+    place-items: center;
+    gap: 0.3rem;
+}
+
+
+
+.collapsible {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 0.2rem;
+    place-items: center;
+    transition: max-height .5s ease-in-out;
+    overflow: hidden;
+    max-height: 10rem;
+    margin: 1rem 0
+}
+
+.collapsed {
+    max-height: 0;
+    margin: 0;
+}
+
+.collapsible>input {
+    width: 90%;
+    font-size: 1rem;
+    color: aliceblue;
+    background-color: #333;
+    border: 1px solid aliceblue;
+    border-radius: 20px;
+    padding: 0.5rem;
+    appearance: textfield;
+}
+
+.collapsible>input::-webkit-outer-spin-button,
+.collapsible>input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.grid32 {
+    grid-area: 3/1/4/3;
+}
+
+.grid42 {
+    grid-area: 4/1/5/3;
+}
+
+.collapserPart {
+    width: 95%;
+    color: aliceblue;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    border: 1px solid aliceblue;
+}
+
+.collapserNameInput {
+    background-color: #CCC;
+    color: #222;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.collapserButton {
+    background-color: #111;
+    font-size: 1.2rem;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+
+}

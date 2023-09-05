@@ -1,3 +1,4 @@
+import Exercise from "../../Components/WorkoutModalView/Exercise/Exercise";
 import MainInfo from "../../Components/WorkoutModalView/MainInfo/MainInfo";
 import Navigation from "../../Components/WorkoutModalView/Navigation/Navigation";
 import { useWorkoutModalContext } from "../../Context/WorkoutModalContext";
@@ -10,7 +11,9 @@ export default function ModalView() {
     <div className={style.mainContainer}>
       <Navigation></Navigation>
       <MainInfo></MainInfo>
-      {workoutId}
+      <Exercise></Exercise>
+      <Exercise></Exercise>
+      <Exercise></Exercise>
     </div>
   );
 }
