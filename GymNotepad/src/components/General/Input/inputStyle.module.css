@@ -1,0 +1,12 @@
+.input {
+    width: 90%;
+    font-size: 1rem;
+    color: aliceblue;
+    background-color: #333;
+    border: 1px solid aliceblue;
+    border-radius: 20px;
+    padding: 0.5rem;
+    appearance: textfield;
+    margin: .2rem 0;
+    text-align: center;
+}

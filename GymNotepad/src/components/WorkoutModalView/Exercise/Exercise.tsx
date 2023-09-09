@@ -1,33 +1,9 @@
-import { ChangeEvent, useState } from "react";
+import Input from "../../General/Input/Input";
 import style from "./exerciseStyle.module.css";
+import useExercise from "./useExercise";
 
 const Exercise = () => {
-  type ExerciseData = {
-    name: string;
-    reps: number;
-    series: number;
-    barWeight: number;
-    weight: number;
-    max: number;
-  };
-
-  const [exerciseData, setExerciseData] = useState<ExerciseData>({
-    name: "",
-    reps: 0,
-    series: 0,
-    barWeight: 0.0,
-    weight: 0.0,
-    max: 0.0,
-  });
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
-
-  const handleDataChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setExerciseData({ ...exerciseData, [e.target.name]: e.target.value });
-  };
-
-  const switchCollapse = () => {
-    setIsCollapsed((prev) => !prev);
-  };
+  const { exerciseData, handleDataChange, switchCollapse, isCollapsed } = useExercise();
 
   return (
     <div className={style.mainContainer}>
@@ -37,45 +13,43 @@ const Exercise = () => {
         onChange={handleDataChange}
         name="name"
         type="text"
+        placeholder="Exercise name..."
       />
       <div className={`${style.collapsible} ${isCollapsed ? style.collapsed : ""}`}>
-        <input
-          value={exerciseData.reps}
-          onChange={handleDataChange}
-          name="reps"
-          type="number"
-        />
-        <input
-          value={exerciseData.series}
-          onChange={handleDataChange}
-          name="series"
-          type="number"
-        />
-        <input
-          value={exerciseData.barWeight}
-          onChange={handleDataChange}
-          name="barWeight"
-          type="number"
-          step={0.01}
-        />
-        <input
-          value={exerciseData.weight}
-          onChange={handleDataChange}
-          name="weight"
-          type="number"
-          step={0.01}
-        />
-        <p className={style.grid32}>
-          {(exerciseData.barWeight * 1 + exerciseData.weight * 1).toFixed(2)}kg
+        <div className={style.fourGrid}>
+          {Input(exerciseData.reps ?? undefined, handleDataChange, "reps", "number", "Reps")}
+          {Input(
+            exerciseData.series ?? undefined,
+            handleDataChange,
+            "series",
+            "number",
+            "Series"
+          )}
+          {Input(
+            exerciseData.barWeight ?? undefined,
+            handleDataChange,
+            "barWeight",
+            "number",
+            "Bar weight",
+            0.1
+          )}
+          {Input(
+            exerciseData.weight ?? undefined,
+            handleDataChange,
+            "weight",
+            "number",
+            "Weight",
+            0.1
+          )}
+        </div>
+        <p>
+          {(
+            (Number(exerciseData.barWeight) ?? 0) * 1 +
+            (Number(exerciseData.weight) ?? 0) * 1
+          ).toFixed(2)}
+          kg
         </p>
-        <input
-          className={style.grid42}
-          value={exerciseData.max}
-          onChange={handleDataChange}
-          name="max"
-          type="number"
-          step={0.01}
-        />
+        {Input(exerciseData.max ?? undefined, handleDataChange, "max", "number", "Max", 0.1)}
       </div>
       <button
         onClick={switchCollapse}
