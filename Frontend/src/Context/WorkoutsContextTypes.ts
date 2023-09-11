@@ -13,6 +13,7 @@ export interface Workout {
 }
 
 export interface Exercise {
+  workoutId: number;
   id: number;
   name: string;
   reps: number;
