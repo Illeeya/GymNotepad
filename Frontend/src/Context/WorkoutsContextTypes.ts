@@ -1,15 +1,28 @@
+export type ChangeWorkoutActions = "add" | "remove" | "modify" | "load";
+
 export interface WorkoutsContextType {
   workouts: Workout[];
 
-  changeWorkouts: (workout: Workout, action: string) => void;
+  changeWorkouts: (workouts: Workout[], action: ChangeWorkoutActions) => void;
 }
 
 export interface Workout {
+  _id: {
+    $oid: string;
+  };
   id: number;
+  ownerId: number;
   type: string;
-  date: Date;
+  date: string;
 
   exercises: Exercise[];
+  createdAt: {
+    $date: string;
+  };
+  updatedAt: {
+    $date: string;
+  };
+  __v: number;
 }
 
 export interface Exercise {
@@ -19,5 +32,14 @@ export interface Exercise {
   reps: number;
   series: number;
   weight: number;
-  bar: number | null;
+  bar: null | number;
+  _id: {
+    $oid: string;
+  };
+  createdAt: {
+    $date: string;
+  };
+  updatedAt: {
+    $date: string;
+  };
 }

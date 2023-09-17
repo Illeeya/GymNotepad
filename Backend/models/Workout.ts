@@ -44,6 +44,10 @@ const workoutSchema = new Schema(
       required: true,
       unique: true,
     },
+    ownerId: {
+      type: Number,
+      required: true,
+    },
     type: {
       type: String,
       required: true,

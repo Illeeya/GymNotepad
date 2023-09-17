@@ -11,11 +11,9 @@ const Callendar = () => {
   const firstWeekday: number = firstDayOfMonth.getDay() == 0 ? 7 : firstDayOfMonth.getDay();
   const daysInMonth: number = new Date(pickedYear, pickedMonth + 1, 0).getDate();
   const daysWithWorkout: number[] = workouts
-    .filter((ex) => ex.date.getMonth() === pickedMonth)
-    .map((ex) => ex.date.getDate());
-
-  daysWithWorkout.push(5, 7, 11, 16, 21, 25);
-
+    .filter((ex) => new Date(ex.date).getMonth() === pickedMonth)
+    .map((ex) => new Date(ex.date).getDate());
+  // daysWithWorkout.push(5, 7, 11, 16, 21, 25);
   //Weekday names as first row
   for (let i: number = 0; i < 7; i++) {
     grid.push(Day(weekDays[i], false));
