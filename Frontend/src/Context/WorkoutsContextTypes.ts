@@ -33,13 +33,9 @@ export interface Exercise {
   series: number;
   weight: number;
   bar: null | number;
-  _id: {
-    $oid: string;
-  };
-  createdAt: {
-    $date: string;
-  };
-  updatedAt: {
-    $date: string;
-  };
+  _id: string;
+
+  createdAt: string;
+
+  updatedAt: string;
 }

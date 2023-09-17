@@ -3,6 +3,11 @@ import { useDatepickerContext } from "../../../Context/DatepickerContext";
 import { useWorkoutsContext } from "../../../Context/WorkoutsContext";
 import { useWorkoutModalContext } from "../../../Context/WorkoutModalContext";
 
+type dayWithWorkout = {
+  dayNumber: number;
+  workoutId: number;
+};
+
 const Callendar = () => {
   const { workouts } = useWorkoutsContext();
   const { pickedYear, pickedMonth } = useDatepickerContext();
@@ -10,9 +15,9 @@ const Callendar = () => {
   const firstDayOfMonth: Date = new Date(pickedYear, pickedMonth, 1);
   const firstWeekday: number = firstDayOfMonth.getDay() == 0 ? 7 : firstDayOfMonth.getDay();
   const daysInMonth: number = new Date(pickedYear, pickedMonth + 1, 0).getDate();
-  const daysWithWorkout: number[] = workouts
+  const daysWithWorkout: dayWithWorkout[] = workouts
     .filter((ex) => new Date(ex.date).getMonth() === pickedMonth)
-    .map((ex) => new Date(ex.date).getDate());
+    .map((ex) => ({ dayNumber: new Date(ex.date).getDate(), workoutId: ex.id }));
   // daysWithWorkout.push(5, 7, 11, 16, 21, 25);
   //Weekday names as first row
   for (let i: number = 0; i < 7; i++) {
@@ -26,7 +31,14 @@ const Callendar = () => {
     if (i < firstWeekday || j > daysInMonth) {
       grid.push(Day(""));
     } else {
-      grid.push(Day(j, true, daysWithWorkout.includes(j)));
+      grid.push(
+        Day(
+          j,
+          true,
+          daysWithWorkout.some((x) => x.dayNumber == j),
+          daysWithWorkout.find((x) => x.dayNumber == j)?.workoutId
+        )
+      );
       j++;
     }
   }
@@ -36,7 +48,8 @@ const Callendar = () => {
 const Day = (
   dayNumer: number | string,
   filled: boolean = false,
-  hasWorkout: boolean = false
+  hasWorkout: boolean = false,
+  workoutId: number | null = null
 ) => {
   const { openClose, changeWorkoutId } = useWorkoutModalContext();
   return (
@@ -45,7 +58,7 @@ const Day = (
         hasWorkout
           ? () => {
               openClose();
-              changeWorkoutId(Number(dayNumer));
+              changeWorkoutId(workoutId || 0);
             }
           : undefined
       }

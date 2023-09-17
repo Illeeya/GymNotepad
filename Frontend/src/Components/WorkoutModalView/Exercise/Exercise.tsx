@@ -2,8 +2,14 @@ import Input from "../../General/Input/Input";
 import style from "./exerciseStyle.module.css";
 import useExercise from "./useExercise";
 
-const Exercise = () => {
-  const { exerciseData, handleDataChange, switchCollapse, isCollapsed } = useExercise();
+type ExerciseProps = {
+  exerciseId: number;
+  workoutId: number;
+};
+
+const Exercise = (props: ExerciseProps) => {
+  const { exerciseData, max, handleDataChange, switchCollapse, isCollapsed } =
+    useExercise(props);
 
   return (
     <div className={style.mainContainer}>
@@ -26,7 +32,7 @@ const Exercise = () => {
             "Series"
           )}
           {Input(
-            exerciseData.barWeight ?? undefined,
+            exerciseData.bar ?? undefined,
             handleDataChange,
             "barWeight",
             "number",
@@ -44,12 +50,12 @@ const Exercise = () => {
         </div>
         <p>
           {(
-            (Number(exerciseData.barWeight) ?? 0) * 1 +
+            (Number(exerciseData.bar) ?? 0) * 1 +
             (Number(exerciseData.weight) ?? 0) * 1
           ).toFixed(2)}
           kg
         </p>
-        {Input(exerciseData.max ?? undefined, handleDataChange, "max", "number", "Max", 0.1)}
+        {Input(max ?? undefined, () => {}, "max", "number", "Max", 0.1)}
       </div>
       <button
         onClick={switchCollapse}
