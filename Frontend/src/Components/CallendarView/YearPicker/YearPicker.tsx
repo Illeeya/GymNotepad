@@ -1,8 +1,14 @@
-import { useDatepickerContext } from "../../../Context/DatepickerContext";
 import style from "./yearPickerStyle.module.css";
+import { useSelector } from "react-redux";
+import { State } from "../../../State/Reducers";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../../State";
 
 const YearPicker = () => {
-  const { pickedYear, pickYear } = useDatepickerContext();
+  const dispatch = useDispatch();
+  const { pickYear } = bindActionCreators(actionCreators, dispatch);
+  const { pickedYear } = useSelector((state: State) => state.datapicker);
   const year: number = pickedYear;
   const years: JSX.Element[] = [];
 

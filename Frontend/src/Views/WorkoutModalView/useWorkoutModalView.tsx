@@ -1,10 +1,11 @@
+import { useSelector } from "react-redux";
 import ExerciseComponent from "../../Components/WorkoutModalView/Exercise/Exercise";
-import { useWorkoutsContext } from "../../Context/WorkoutsContext";
-import { Exercise, Workout } from "../../Context/WorkoutsContextTypes";
+import { State } from "../../State/Reducers";
+import { Exercise, Workout } from "../../Types/Workout";
 
 export default function useWorkoutModalView() {
   function Exercises(workoutId: number) {
-    const { workouts } = useWorkoutsContext();
+    const workouts = useSelector((state: State) => state.workouts);
     const workout: Workout | undefined = workouts.find((workout) => workout.id == workoutId);
     const exercises: Exercise[] | undefined = workout?.exercises;
 

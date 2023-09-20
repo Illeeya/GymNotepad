@@ -1,5 +1,7 @@
 import { ChangeEvent, useState } from "react";
-import { useWorkoutsContext } from "../../../Context/WorkoutsContext";
+import { useSelector } from "react-redux";
+import { State } from "../../../State/Reducers";
+import { Exercise } from "../../../Types/Workout";
 
 type ExerciseProps = {
   exerciseId: number;
@@ -21,21 +23,12 @@ type ExerciseData = {
   updatedAt: string;
 };
 export default function useExercise(props: ExerciseProps) {
-  // type ExerciseData = {
-  //   name: string;
-  //   reps: number | string;
-  //   series: number | string;
-  //   barWeight: number | string;
-  //   weight: number | string;
-  //   max: number | string;
-  // };
-
-  const { workouts } = useWorkoutsContext();
+  const workouts = useSelector((state: State) => state.workouts);
 
   function getExerciseData() {
     return workouts
       .find((workout) => workout.id == props.workoutId)
-      ?.exercises.find((exercise) => exercise.id == props.exerciseId);
+      ?.exercises.find((exercise: Exercise) => exercise.id == props.exerciseId);
   }
 
   const [exerciseData, setExerciseData] = useState<ExerciseData>(

@@ -1,7 +1,9 @@
 import style from "./callendarStyle.module.css";
-import { useDatepickerContext } from "../../../Context/DatepickerContext";
-import { useWorkoutsContext } from "../../../Context/WorkoutsContext";
-import { useWorkoutModalContext } from "../../../Context/WorkoutModalContext";
+import { State } from "../../../State/Reducers";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../../State";
 
 type dayWithWorkout = {
   dayNumber: number;
@@ -9,8 +11,8 @@ type dayWithWorkout = {
 };
 
 const Callendar = () => {
-  const { workouts } = useWorkoutsContext();
-  const { pickedYear, pickedMonth } = useDatepickerContext();
+  const workouts = useSelector((state: State) => state.workouts);
+  const { pickedMonth, pickedYear } = useSelector((state: State) => state.datapicker);
   const grid: JSX.Element[] = [];
   const firstDayOfMonth: Date = new Date(pickedYear, pickedMonth, 1);
   const firstWeekday: number = firstDayOfMonth.getDay() == 0 ? 7 : firstDayOfMonth.getDay();
@@ -51,14 +53,17 @@ const Day = (
   hasWorkout: boolean = false,
   workoutId: number | null = null
 ) => {
-  const { openClose, changeWorkoutId } = useWorkoutModalContext();
+  const dispatch = useDispatch();
+
+  const { toggleModal, changeId } = bindActionCreators(actionCreators, dispatch);
+
   return (
     <div
       onClick={
         hasWorkout
           ? () => {
-              openClose();
-              changeWorkoutId(workoutId || 0);
+              toggleModal();
+              changeId(workoutId || 0);
             }
           : undefined
       }

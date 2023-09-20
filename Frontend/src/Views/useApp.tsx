@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
-import { useWorkoutsContext } from "../Context/WorkoutsContext";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../State";
 
 export function useApp() {
   const [showCallendar, setShowCallendar] = useState<boolean>(true);
 
-  const { changeWorkouts } = useWorkoutsContext();
+  const dispatch = useDispatch();
+
+  const { loadWorkouts } = bindActionCreators(actionCreators, dispatch);
 
   function switchView() {
     setShowCallendar(!showCallendar);
@@ -22,7 +26,7 @@ export function useApp() {
     };
     fetch("http://localhost:6969/getWorkoutsForUser", requestOptions)
       .then((response) => response.json())
-      .then((data) => changeWorkouts(data, "load"))
+      .then((data) => loadWorkouts(data))
       .catch((error) => alert(`Error: ${error}`));
   }
 

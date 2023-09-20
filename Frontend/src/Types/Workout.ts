@@ -1,11 +1,3 @@
-export type ChangeWorkoutActions = "add" | "remove" | "modify" | "load";
-
-export interface WorkoutsContextType {
-  workouts: Workout[];
-
-  changeWorkouts: (workouts: Workout[], action: ChangeWorkoutActions) => void;
-}
-
 export interface Workout {
   _id: {
     $oid: string;

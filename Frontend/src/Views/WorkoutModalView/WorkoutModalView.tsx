@@ -1,12 +1,12 @@
-import Exercise from "../../Components/WorkoutModalView/Exercise/Exercise";
+import { useSelector } from "react-redux";
 import MainInfo from "../../Components/WorkoutModalView/MainInfo/MainInfo";
 import Navigation from "../../Components/WorkoutModalView/Navigation/Navigation";
-import { useWorkoutModalContext } from "../../Context/WorkoutModalContext";
 import useWorkoutModalView from "./useWorkoutModalView";
 import style from "./workoutModalView.module.css";
+import { State } from "../../State/Reducers";
 
 export default function ModalView() {
-  const { workoutId } = useWorkoutModalContext();
+  const { workoutId } = useSelector((state: State) => state.workoutModal);
   const { Exercises } = useWorkoutModalView();
 
   return (

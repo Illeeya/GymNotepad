@@ -1,8 +1,14 @@
-import { useDatepickerContext } from "../../../Context/DatepickerContext";
+import { useSelector } from "react-redux";
 import style from "./monthPickerStyle.module.css";
+import { State } from "../../../State/Reducers";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../../State";
 
 const MonthPicker = () => {
-  const { pickedMonth, pickMonth } = useDatepickerContext();
+  const dispatch = useDispatch();
+  const { pickMonth } = bindActionCreators(actionCreators, dispatch);
+  const { pickedMonth } = useSelector((state: State) => state.datapicker);
   const month: number = pickedMonth;
   const months: JSX.Element[] = [];
 

@@ -1,14 +1,14 @@
-import { DatepickerContextProvider } from "../Context/DatepickerContext";
-import { useWorkoutModalContext } from "../Context/WorkoutModalContext";
-import { WorkoutsContextProvider } from "../Context/WorkoutsContext";
+import { useSelector } from "react-redux";
 import CallendarView from "./CallendarView/CallendarView";
 import ListView from "./ListView/ListView";
 import ModalView from "./WorkoutModalView/WorkoutModalView";
 import style from "./appStyle.module.css";
 import { useApp } from "./useApp";
+import { State } from "../State/Reducers";
 function App() {
   const { showCallendar, switchView } = useApp();
-  const { isOpen } = useWorkoutModalContext();
+  const { isOpen } = useSelector((state: State) => state.workoutModal);
+
   return (
     <div className={style.mainContainer}>
       {isOpen ? (

@@ -12,5 +12,5 @@ export default function CallendarView() {
       </div>
       <Callendar />
     </div>
-  ); // classname='newModuleMainContainer'
+  );
 }
