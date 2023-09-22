@@ -26,3 +26,9 @@ body,
     background-color: black;
     color: aliceblue;
 }
+
+#root {
+    display: flex;
+    justify-content: center;
+    place-items: center;
+}

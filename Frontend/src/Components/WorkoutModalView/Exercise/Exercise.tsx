@@ -23,6 +23,7 @@ const Exercise = (props: ExerciseProps) => {
       />
       <div className={`${style.collapsible} ${isCollapsed ? style.collapsed : ""}`}>
         <div className={style.fourGrid}>
+          <p className={[style.toRight, style.label].join(" ")}>Reps</p>
           {Input(exerciseData.reps ?? undefined, handleDataChange, "reps", "number", "Reps")}
           {Input(
             exerciseData.series ?? undefined,
@@ -31,6 +32,8 @@ const Exercise = (props: ExerciseProps) => {
             "number",
             "Series"
           )}
+          <p className={[style.toLeft, style.label].join(" ")}>Series</p>
+          <p className={[style.toRight, style.label].join(" ")}>Bar</p>
           {Input(
             exerciseData.bar ?? undefined,
             handleDataChange,
@@ -39,6 +42,7 @@ const Exercise = (props: ExerciseProps) => {
             "Bar weight",
             0.1
           )}
+
           {Input(
             exerciseData.weight ?? undefined,
             handleDataChange,
@@ -47,6 +51,7 @@ const Exercise = (props: ExerciseProps) => {
             "Weight",
             0.1
           )}
+          <p className={[style.toLeft, style.label].join(" ")}>Weight</p>
         </div>
         <p>
           {(
@@ -55,7 +60,10 @@ const Exercise = (props: ExerciseProps) => {
           ).toFixed(2)}
           kg
         </p>
-        {Input(max ?? undefined, () => {}, "max", "number", "Max", 0.1)}
+        <p className={style.label}>Max:</p>
+        <div className={style.maxWrapper}>
+          {Input(max ?? undefined, () => {}, "max", "number", "Max", 0.1)}
+        </div>
       </div>
       <button
         onClick={switchCollapse}

@@ -1,6 +1,6 @@
 import style from "./buttonStyle.module.css";
 
-type ButtonTypes = "Confirm" | "Save" | "Cancel";
+type ButtonTypes = "Confirm" | "Save" | "Cancel" | "Add";
 
 const Button = (type: ButtonTypes, handler: () => void) => {
   return (

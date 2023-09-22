@@ -20,6 +20,26 @@
     max-height: 0;
 }
 
+.toLeft {
+    justify-self: left;
+    margin-right: .6rem;
+}
+
+.toRight {
+    justify-self: right;
+    margin-left: .6rem;
+}
+
+.label {
+    color: #666;
+}
+
+.maxWrapper {
+    display: grid;
+    place-items: center;
+    width: 50%;
+}
+
 .collapsible>input::-webkit-outer-spin-button,
 .collapsible>input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -27,7 +47,7 @@
 
 .fourGrid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto 1fr 1fr auto;
     grid-template-rows: 1fr 1fr;
     gap: 0.2rem;
     place-items: center;
@@ -57,5 +77,11 @@
     font-size: 1.2rem;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
+    -webkit-transition-duration: 0.1s;
+    /* Safari */
+    transition-duration: 0.1s;
+}
 
+.collapserButton:active {
+    filter: brightness(200%)
 }

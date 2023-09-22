@@ -21,6 +21,7 @@ const Callendar = () => {
     .filter((ex) => new Date(ex.date).getMonth() === pickedMonth)
     .map((ex) => ({ dayNumber: new Date(ex.date).getDate(), workoutId: ex.id }));
   // daysWithWorkout.push(5, 7, 11, 16, 21, 25);
+  console.log(workouts);
   //Weekday names as first row
   for (let i: number = 0; i < 7; i++) {
     grid.push(Day(weekDays[i], false));

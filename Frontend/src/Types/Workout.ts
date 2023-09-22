@@ -1,7 +1,8 @@
 export interface Workout {
-  _id: {
-    $oid: string;
-  };
+  _id: string;
+  // {
+  //   $oid: string;
+  // };
   id: number;
   ownerId: number;
   type: string;

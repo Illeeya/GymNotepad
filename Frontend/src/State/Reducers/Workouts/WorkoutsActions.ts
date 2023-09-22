@@ -1,4 +1,4 @@
-import { Workout } from "../../../Context/WorkoutsContextTypes";
+import { Workout } from "../../../Types/Workout";
 
 export enum ActionType {
   ADDWORKOUT = "addWorkout",

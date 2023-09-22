@@ -6,6 +6,13 @@
     color: aliceblue;
     border: none;
     width: 100%;
+    -webkit-transition-duration: 0.1s;
+    /* Safari */
+    transition-duration: 0.1s;
+}
+
+.myButton:active {
+    filter: brightness(85%)
 }
 
 .mySaveButton {
@@ -18,4 +25,8 @@
 
 .myCancelButton {
     background-color: maroon;
+}
+
+.myAddButton {
+    background-color: dimgrey;
 }
