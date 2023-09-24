@@ -3,8 +3,8 @@ import style from "./exerciseStyle.module.css";
 import useExercise from "./useExercise";
 
 type ExerciseProps = {
-  exerciseId: number;
-  workoutId: number;
+  exerciseId: string;
+  workoutId: string;
 };
 
 const Exercise = (props: ExerciseProps) => {

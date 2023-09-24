@@ -9,7 +9,7 @@ export const toggleModal = () => {
   };
 };
 
-export const changeId = (newId: number) => {
+export const changeId = (newId: string) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.CHANGEID,

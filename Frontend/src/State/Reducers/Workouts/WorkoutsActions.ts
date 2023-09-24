@@ -1,11 +1,16 @@
 import { Workout } from "../../../Types/Workout";
 
 export enum ActionType {
+  // TOGGLEISLOADED = "toggleIsLoaded",
   ADDWORKOUT = "addWorkout",
   REMOVEWORKOUT = "removeWorkout",
   MODIFYWORKOUT = "modifyWorkout",
   LOADWORKOUTS = "loadWorkouts",
 }
+
+// interface ToggleIsLoaded {
+//   type: ActionType.TOGGLEISLOADED;
+// }
 
 interface AddWorkout {
   type: ActionType.ADDWORKOUT;
@@ -14,7 +19,7 @@ interface AddWorkout {
 
 interface RemoveWorkout {
   type: ActionType.REMOVEWORKOUT;
-  payload: number;
+  payload: string;
 }
 
 interface ModifyWorkout {
@@ -27,4 +32,6 @@ interface LoadWorkouts {
   payload: Workout[];
 }
 
-export type Action = AddWorkout | RemoveWorkout | ModifyWorkout | LoadWorkouts;
+export type Action =
+  // | ToggleIsLoaded
+  AddWorkout | RemoveWorkout | ModifyWorkout | LoadWorkouts;

@@ -9,7 +9,7 @@ interface ToggleModal {
 
 interface ChangeId {
   type: ActionType.CHANGEID;
-  payload: number;
+  payload: string;
 }
 
 export type Action = ToggleModal | ChangeId;

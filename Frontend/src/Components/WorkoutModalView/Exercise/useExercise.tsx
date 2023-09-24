@@ -4,26 +4,21 @@ import { State } from "../../../State/Reducers";
 import { Exercise } from "../../../Types/Workout";
 
 type ExerciseProps = {
-  exerciseId: number;
-  workoutId: number;
+  exerciseId: string;
+  workoutId: string;
 };
 
 type ExerciseData = {
-  workoutId: number;
-  id: number;
+  workoutId: string;
+  id: string;
   name: string;
   reps: number | string;
   series: number | string;
   weight: number | string;
   bar: null | number | string;
-  _id: string;
-
-  createdAt: string;
-
-  updatedAt: string;
 };
 export default function useExercise(props: ExerciseProps) {
-  const workouts = useSelector((state: State) => state.workouts);
+  const workouts = useSelector((state: State) => state.workouts.workouts);
 
   function getExerciseData() {
     return workouts
@@ -33,16 +28,13 @@ export default function useExercise(props: ExerciseProps) {
 
   const [exerciseData, setExerciseData] = useState<ExerciseData>(
     getExerciseData() || {
-      workoutId: 0,
-      id: 0,
+      workoutId: "",
+      id: "0",
       name: "",
       reps: "",
       series: "",
       weight: "",
       bar: "",
-      _id: "",
-      createdAt: "",
-      updatedAt: "",
     }
   );
 

@@ -1,20 +1,34 @@
 import { Workout } from "../../../Types/Workout";
 import { Action, ActionType } from "./WorkoutsActions";
 
-const initialState: Workout[] = [];
+type WorkoutsType = {
+  isLoaded: boolean;
+  workouts: Workout[];
+};
 
-const reducer = (state: Workout[] = initialState, action: Action) => {
+const initialState: WorkoutsType = {
+  isLoaded: false,
+  workouts: [],
+};
+
+const reducer = (state: WorkoutsType = initialState, action: Action) => {
   switch (action.type) {
     case ActionType.ADDWORKOUT:
-      return [action.payload, ...state];
+      return { isLoaded: state.isLoaded, workouts: [action.payload, ...state.workouts] };
     case ActionType.REMOVEWORKOUT:
-      return state.filter((x) => x.id !== action.payload);
+      return {
+        isLoaded: state.isLoaded,
+        workouts: state.workouts.filter((x) => x.id !== action.payload),
+      };
     case ActionType.MODIFYWORKOUT:
-      return state.map((x) => {
-        return x.id === action.payload.id ? action.payload : x;
-      });
+      return {
+        isLoaded: state.isLoaded,
+        workouts: state.workouts.map((x) => {
+          return x.id === action.payload.id ? action.payload : x;
+        }),
+      };
     case ActionType.LOADWORKOUTS:
-      return action.payload;
+      return { isLoaded: true, workouts: action.payload };
     default:
       return state;
   }

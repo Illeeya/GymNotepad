@@ -2,6 +2,13 @@ import { Dispatch } from "redux";
 import { Workout } from "../../../Types/Workout";
 import { Action, ActionType } from "../../Reducers/Workouts/WorkoutsActions";
 
+// export const toggleIsLoaded = () => {
+//   return (dispatch: Dispatch<Action>) => {
+//     dispatch({
+//       type: ActionType.TOGGLEISLOADED,
+//     });
+//   };
+// };
 export const addWorkout = (newWorkout: Workout) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
@@ -10,7 +17,7 @@ export const addWorkout = (newWorkout: Workout) => {
     });
   };
 };
-export const removeWorkout = (workoutId: number) => {
+export const removeWorkout = (workoutId: string) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.REMOVEWORKOUT,

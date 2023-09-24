@@ -7,11 +7,11 @@ import { actionCreators } from "../../../State";
 
 type dayWithWorkout = {
   dayNumber: number;
-  workoutId: number;
+  workoutId: string;
 };
 
 const Callendar = () => {
-  const workouts = useSelector((state: State) => state.workouts);
+  const workouts = useSelector((state: State) => state.workouts.workouts);
   const { pickedMonth, pickedYear } = useSelector((state: State) => state.datapicker);
   const grid: JSX.Element[] = [];
   const firstDayOfMonth: Date = new Date(pickedYear, pickedMonth, 1);
@@ -39,7 +39,7 @@ const Callendar = () => {
           j,
           true,
           daysWithWorkout.some((x) => x.dayNumber == j),
-          daysWithWorkout.find((x) => x.dayNumber == j)?.workoutId
+          daysWithWorkout.find((x) => x.dayNumber == j)?.workoutId || ""
         )
       );
       j++;
@@ -52,7 +52,7 @@ const Day = (
   dayNumer: number | string,
   filled: boolean = false,
   hasWorkout: boolean = false,
-  workoutId: number | null = null
+  workoutId: string = ""
 ) => {
   const dispatch = useDispatch();
 
@@ -61,12 +61,13 @@ const Day = (
   return (
     <div
       onClick={
-        hasWorkout
-          ? () => {
-              toggleModal();
-              changeId(workoutId || 0);
-            }
-          : undefined
+        // hasWorkout
+        //   ?
+        () => {
+          toggleModal();
+          changeId(workoutId || "");
+        }
+        // : undefined
       }
       key={crypto.randomUUID()}
       className={`${style.callendarDay} ${filled ? style.filledDay : ""} ${

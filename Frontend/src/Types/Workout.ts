@@ -1,34 +1,18 @@
 export interface Workout {
-  _id: string;
-  // {
-  //   $oid: string;
-  // };
-  id: number;
+  id: string;
   ownerId: number;
   type: string;
   date: string;
 
   exercises: Exercise[];
-  createdAt: {
-    $date: string;
-  };
-  updatedAt: {
-    $date: string;
-  };
-  __v: number;
 }
 
 export interface Exercise {
-  workoutId: number;
-  id: number;
+  workoutId: string;
+  id: string;
   name: string;
   reps: number;
   series: number;
   weight: number;
   bar: null | number;
-  _id: string;
-
-  createdAt: string;
-
-  updatedAt: string;
 }

@@ -2,14 +2,38 @@ import { useSelector } from "react-redux";
 import ExerciseComponent from "../../Components/WorkoutModalView/Exercise/Exercise";
 import { State } from "../../State/Reducers";
 import { Exercise, Workout } from "../../Types/Workout";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../../State";
+import { useEffect } from "react";
 
 export default function useWorkoutModalView() {
-  function Exercises(workoutId: number) {
-    const workouts = useSelector((state: State) => state.workouts);
-    const workout: Workout | undefined = workouts.find((workout) => workout.id == workoutId);
-    const exercises: Exercise[] | undefined = workout?.exercises;
+  function Exercises(workoutId: string) {
+    const workouts = useSelector((state: State) => state.workouts.workouts);
 
-    console.log(workout);
+    const dispatch = useDispatch();
+    const { modifyCurrentWorkout } = bindActionCreators(actionCreators, dispatch);
+
+    const currentWorkout = useSelector((state: State) => state.currentWorkout);
+
+    const exercises: Exercise[] | undefined = currentWorkout?.exercises;
+
+    console.log(currentWorkout);
+
+    function setCurrentWorkout() {
+      const workout: Workout = workouts.find((workout) => workout.id == workoutId) || {
+        id: crypto.randomUUID(),
+        ownerId: 1,
+        type: "",
+        date: new Date().toString(),
+        exercises: [],
+      };
+      modifyCurrentWorkout(workout);
+    }
+
+    useEffect(() => {
+      setCurrentWorkout();
+    }, []);
 
     return (
       <>
