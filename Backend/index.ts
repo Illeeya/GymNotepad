@@ -30,56 +30,33 @@ server.post("/getWorkoutsForUser", (req, res) => {
   }
 });
 
-server.get("/testGet", async (req: Request, res: Response) => {
-  const workout = new Workout({
-    id: 3,
-    type: "Power",
-    date: "2023-09-11T08:00:00Z",
-    exercises: [
-      {
-        workoutId: 1,
-        id: 21,
-        name: "Bench Press",
-        reps: 8,
-        series: 4,
-        weight: 185,
-        bar: 45,
-      },
-      {
-        workoutId: 1,
-        id: 22,
-        name: "Deadlift",
-        reps: 5,
-        series: 5,
-        weight: 225,
-        bar: 45,
-      },
-      {
-        workoutId: 1,
-        id: 23,
-        name: "Squat",
-        reps: 10,
-        series: 3,
-        weight: 200,
-        bar: 45,
-      },
-    ],
-  });
-
-  Workout.init()
-    .then(() => {
-      workout
-        .save()
-        .then((result) => {
-          res.status(200).send(result);
-        })
-        .catch((error) => {
-          res.status(500).send(`Ewwow UwU: ${error}`);
-        });
-    })
-    .catch((error) => {
-      console.log(`Handle duplicate error: ${error}`);
-    });
+server.post("/addOrModifyWorkout", (req, res) => {
+  if (req.body.username) {
+    User.findOne({ username: req.body.username })
+      .then((result) => {
+        if (!result) {
+          return res.status(404).json({ message: "User not found" });
+        }
+        Workout.updateOne(
+          { ownerId: result.userId, id: req.body.workout.id },
+          req.body.workout,
+          { upsert: true }
+        )
+          .then(() => {
+            res.status(200).json({ message: "Workout added or modified successfully" });
+          })
+          .catch((error) => {
+            // Update errors
+            res.status(500).json({ message: "Internal server error", error: error.message });
+          });
+      })
+      .catch((error) => {
+        // Find user error
+        res.status(500).json({ message: "Internal server error", error: error.message });
+      });
+  } else {
+    res.status(400).json({ message: "Missing 'username' in request body" });
+  }
 });
 
 server.post("/addWorkout", async (req: Request, res: Response) => {

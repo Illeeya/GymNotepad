@@ -1,6 +1,7 @@
 export enum ActionType {
   PICKYEAR = "pickYear",
   PICKMONTH = "pickMonth",
+  PICKDAY = "pickDay",
 }
 
 interface PickYear {
@@ -13,4 +14,9 @@ interface PickMonth {
   payload: number;
 }
 
-export type Action = PickYear | PickMonth;
+interface PickDay {
+  type: ActionType.PICKDAY;
+  payload: number;
+}
+
+export type Action = PickYear | PickMonth | PickDay;

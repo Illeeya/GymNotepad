@@ -3,12 +3,12 @@ import { Action, ActionType } from "./WorkoutModalActions";
 type WorkoutModalType = {
   isOpen: boolean;
 
-  workoutId: number;
+  workoutId: string;
 };
 
 const initialState = {
   isOpen: false,
-  workoutId: 0,
+  workoutId: "",
 };
 
 const reducer = (state: WorkoutModalType = initialState, action: Action) => {

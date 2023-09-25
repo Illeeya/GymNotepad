@@ -1,8 +1,11 @@
-export async function fetchWorkoutsForUser() {
+import { toast } from "react-toastify";
+import { Workout } from "../../Types/Workout";
+
+export async function fetchWorkoutsForUser(username: string = "Ilee") {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username: "Ilee" }),
+    body: JSON.stringify({ username: username }),
   };
   return fetch("http://localhost:6969/getWorkoutsForUser", requestOptions)
     .then((response) => {
@@ -15,6 +18,27 @@ export async function fetchWorkoutsForUser() {
       console.error(`Error: ${error}`);
       throw error;
     });
+}
+
+export async function syncWorkout(username: string, workout: Workout) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username: username, workout: workout }),
+  };
+
+  try {
+    const response = await fetch("http://localhost:6969/addOrModifyWorkout", requestOptions);
+
+    if (response.ok) {
+      toast.success("Data saved", { theme: "dark" });
+    } else {
+      const errorResponse = await response.json();
+      toast.error(`Error: ${errorResponse.message}`, { theme: "dark" });
+    }
+  } catch (error) {
+    toast.error(`Error: ${error}`, { theme: "dark" });
+  }
 }
 
 export function testGet() {

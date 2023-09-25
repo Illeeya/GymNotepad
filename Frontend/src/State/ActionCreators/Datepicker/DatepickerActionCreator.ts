@@ -17,3 +17,11 @@ export const pickMonth = (pickedMonth: number) => {
     });
   };
 };
+export const pickDay = (pickedDay: number) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.PICKDAY,
+      payload: pickedDay,
+    });
+  };
+};

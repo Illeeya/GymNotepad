@@ -56,7 +56,7 @@ const Day = (
 ) => {
   const dispatch = useDispatch();
 
-  const { toggleModal, changeId } = bindActionCreators(actionCreators, dispatch);
+  const { toggleModal, changeId, pickDay } = bindActionCreators(actionCreators, dispatch);
 
   return (
     <div
@@ -64,6 +64,7 @@ const Day = (
         // hasWorkout
         //   ?
         () => {
+          if (filled) pickDay(Number(dayNumer));
           toggleModal();
           changeId(workoutId || "");
         }

@@ -4,6 +4,9 @@ import Navigation from "../../Components/WorkoutModalView/Navigation/Navigation"
 import useWorkoutModalView from "./useWorkoutModalView";
 import style from "./workoutModalView.module.css";
 import { State } from "../../State/Reducers";
+import Button from "../../Components/General/Button/Button";
+import { syncWorkout } from "../../api/Workouts/WorkoutsApi";
+import { ToastContainer } from "react-toastify";
 
 export default function ModalView() {
   const { workoutId } = useSelector((state: State) => state.workoutModal);
@@ -12,14 +15,16 @@ export default function ModalView() {
   return (
     <div className={style.mainContainer}>
       <Navigation></Navigation>
-      {workoutId == 0 ? (
+      {/* {workoutId == 0 ? (
         <div>WRONG ID</div>
-      ) : (
-        <>
-          <MainInfo></MainInfo>
-          {Exercises(workoutId)}
-        </>
-      )}
+      ) : ( */}
+      <>
+        <MainInfo></MainInfo>
+        {Exercises(workoutId)}
+        {Button("Add", () => {}, "Add exercise")}
+      </>
+      <ToastContainer />
+      {/* )} */}
     </div>
   );
 }

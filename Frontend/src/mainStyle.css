@@ -14,7 +14,7 @@
     box-sizing: border-box;
 }
 
-html * {
+.easeOut {
     animation: 0.3s ease-out 0s 1 easeOut;
 }
 

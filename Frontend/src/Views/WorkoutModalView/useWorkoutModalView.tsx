@@ -16,16 +16,21 @@ export default function useWorkoutModalView() {
 
     const currentWorkout = useSelector((state: State) => state.currentWorkout);
 
+    const { pickedYear, pickedMonth, pickedDay } = useSelector(
+      (state: State) => state.datapicker
+    );
+
     const exercises: Exercise[] | undefined = currentWorkout?.exercises;
 
     console.log(currentWorkout);
 
     function setCurrentWorkout() {
+      const _date = new Date(pickedYear, pickedMonth, pickedDay);
       const workout: Workout = workouts.find((workout) => workout.id == workoutId) || {
         id: crypto.randomUUID(),
         ownerId: 1,
         type: "",
-        date: new Date().toString(),
+        date: _date.toISOString(),
         exercises: [],
       };
       modifyCurrentWorkout(workout);

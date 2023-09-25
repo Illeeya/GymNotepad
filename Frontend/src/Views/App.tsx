@@ -6,6 +6,7 @@ import style from "./appStyle.module.css";
 import { useApp } from "./useApp";
 import { State } from "../State/Reducers";
 import { Loader } from "./Loader/Loader";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const { showCallendar, switchView } = useApp();
   const isModalOpen = useSelector((state: State) => state.workoutModal.isOpen);
