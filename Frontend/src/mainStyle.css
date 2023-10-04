@@ -18,11 +18,16 @@
     animation: 0.3s ease-out 0s 1 easeOut;
 }
 
-html,
-body,
-#root {
+html {
     height: 100vh;
     width: 100vw;
+    overflow-x: hidden;
+}
+
+body,
+#root {
+    height: 100%;
+    width: 100%;
     background-color: black;
     color: aliceblue;
 }

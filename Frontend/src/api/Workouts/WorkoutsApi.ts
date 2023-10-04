@@ -31,7 +31,12 @@ export async function syncWorkout(username: string, workout: Workout) {
     const response = await fetch("http://localhost:6969/addOrModifyWorkout", requestOptions);
 
     if (response.ok) {
-      toast.success("Data saved", { theme: "dark" });
+      toast.success("Data saved", {
+        theme: "dark",
+        pauseOnHover: false,
+        hideProgressBar: true,
+        autoClose: 300,
+      });
     } else {
       const errorResponse = await response.json();
       toast.error(`Error: ${errorResponse.message}`, { theme: "dark" });

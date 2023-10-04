@@ -1,3 +1,9 @@
+import { toast } from "react-toastify";
+
 export default function ListView() {
-  return <div className="listViewMainContainer">ListView_TEST</div>; // classname='newModuleMainContainer'
+  return (
+    <div className="listViewMainContainer">
+      <button onClick={() => toast.error("qwe")}>qwe</button>
+    </div>
+  ); // classname='newModuleMainContainer'
 }

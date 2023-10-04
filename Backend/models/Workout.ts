@@ -3,13 +3,12 @@ import mongoose, { Schema } from "mongoose";
 const exerciseSchema = new mongoose.Schema(
   {
     workoutId: {
-      type: Number,
+      type: String,
       required: true,
     },
     id: {
-      type: Number,
+      type: String,
       required: true,
-      unique: true,
     },
     name: {
       type: String,
@@ -40,9 +39,8 @@ const exerciseSchema = new mongoose.Schema(
 const workoutSchema = new Schema(
   {
     id: {
-      type: Number,
+      type: String,
       required: true,
-      unique: true,
     },
     ownerId: {
       type: Number,

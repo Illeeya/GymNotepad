@@ -7,6 +7,7 @@ import { useApp } from "./useApp";
 import { State } from "../State/Reducers";
 import { Loader } from "./Loader/Loader";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 function App() {
   const { showCallendar, switchView } = useApp();
   const isModalOpen = useSelector((state: State) => state.workoutModal.isOpen);
@@ -30,6 +31,7 @@ function App() {
           )}
         </>
       )}
+      <ToastContainer />
     </div>
   );
 }

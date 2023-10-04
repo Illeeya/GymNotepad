@@ -14,16 +14,12 @@ server.post("/getWorkoutsForUser", (req, res) => {
   if (req.body.username) {
     User.findOne({ username: req.body.username })
       .then((result) => {
-        Workout.find({ ownerId: result!.userId })
-          .then((result) => {
-            res.status(200).send(result);
-          })
-          .catch((error) => {
-            res.status(500).send(error);
-          });
+        Workout.find({ ownerId: result!.userId }).then((result) => {
+          res.status(200).send(result);
+        });
       })
       .catch((error) => {
-        res.status(500).send(error);
+        res.status(500).send(`Server error: ${error}`);
       });
   } else {
     res.status(400).send("Bad request. Required userId numeric value.");
@@ -37,22 +33,41 @@ server.post("/addOrModifyWorkout", (req, res) => {
         if (!result) {
           return res.status(404).json({ message: "User not found" });
         }
-        Workout.updateOne(
-          { ownerId: result.userId, id: req.body.workout.id },
-          req.body.workout,
-          { upsert: true }
-        )
+        Workout.init()
           .then(() => {
-            res.status(200).json({ message: "Workout added or modified successfully" });
+            console.log(result.userId, req.body.workout.id);
+
+            Workout.find({ ownerId: result.userId, id: req.body.workout.id }).then(
+              (result) => {
+                console.log(result);
+              }
+            );
+
+            Workout.updateOne(
+              { ownerId: result.userId, id: req.body.workout.id },
+              { $set: req.body.workout },
+              { upsert: true }
+            )
+              .then(() => {
+                res.status(200).json({ message: "Workout added or modified successfully" });
+              })
+              .catch((error) => {
+                // Update errors
+                res
+                  .status(500)
+                  .json({ message: "Internal server error", error: error.message });
+                console.log(error.message);
+              });
           })
           .catch((error) => {
-            // Update errors
             res.status(500).json({ message: "Internal server error", error: error.message });
+            console.log(error.message);
           });
       })
       .catch((error) => {
         // Find user error
-        res.status(500).json({ message: "Internal server error", error: error.message });
+        res.status(500).json({ message: "Server error", error: error.message });
+        console.log(error.message);
       });
   } else {
     res.status(400).json({ message: "Missing 'username' in request body" });
@@ -63,20 +78,11 @@ server.post("/addWorkout", async (req: Request, res: Response) => {
   Workout.validate(req.body)
     .then(() => {
       const workout = new Workout(req.body);
-      Workout.init()
-        .then(() => {
-          workout
-            .save()
-            .then((result) => {
-              res.status(200).send(result);
-            })
-            .catch((error) => {
-              res.status(500).send(error);
-            });
-        })
-        .catch((error) => {
-          res.status(500).send(error);
+      Workout.init().then(() => {
+        workout.save().then((result) => {
+          res.status(200).send(result);
         });
+      });
     })
     .catch((error) => {
       res.status(500).send(error);

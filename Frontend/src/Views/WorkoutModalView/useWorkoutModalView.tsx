@@ -8,50 +8,51 @@ import { actionCreators } from "../../State";
 import { useEffect } from "react";
 
 export default function useWorkoutModalView() {
-  function Exercises(workoutId: string) {
-    const workouts = useSelector((state: State) => state.workouts.workouts);
+    //
+    function Exercises(workoutId: string) {
+        const workouts = useSelector((state: State) => state.workouts.workouts);
 
-    const dispatch = useDispatch();
-    const { modifyCurrentWorkout } = bindActionCreators(actionCreators, dispatch);
+        const dispatch = useDispatch();
+        const { modifyCurrentWorkout } = bindActionCreators(actionCreators, dispatch);
 
-    const currentWorkout = useSelector((state: State) => state.currentWorkout);
+        const currentWorkout = useSelector((state: State) => state.currentWorkout);
 
-    const { pickedYear, pickedMonth, pickedDay } = useSelector(
-      (state: State) => state.datapicker
-    );
+        const { pickedYear, pickedMonth, pickedDay } = useSelector(
+            (state: State) => state.datapicker
+        );
 
-    const exercises: Exercise[] | undefined = currentWorkout?.exercises;
+        const exercises: Exercise[] | undefined = currentWorkout?.exercises;
 
-    console.log(currentWorkout);
+        console.log(currentWorkout);
 
-    function setCurrentWorkout() {
-      const _date = new Date(pickedYear, pickedMonth, pickedDay);
-      const workout: Workout = workouts.find((workout) => workout.id == workoutId) || {
-        id: crypto.randomUUID(),
-        ownerId: 1,
-        type: "",
-        date: _date.toISOString(),
-        exercises: [],
-      };
-      modifyCurrentWorkout(workout);
+        function setCurrentWorkout() {
+            const _date = new Date(pickedYear, pickedMonth, pickedDay + 1);
+            const workout: Workout = workouts.find((workout) => workout.id == workoutId) || {
+                id: crypto.randomUUID(),
+                ownerId: 1,
+                type: "",
+                date: _date.toISOString().split("T")[0],
+                exercises: [],
+            };
+            modifyCurrentWorkout(workout);
+        }
+
+        useEffect(() => {
+            setCurrentWorkout();
+        }, []);
+
+        return (
+            <>
+                {exercises?.map((exercise) => (
+                    <ExerciseComponent
+                        key={crypto.randomUUID()}
+                        exerciseId={exercise.id}
+                        workoutId={exercise.workoutId}
+                    />
+                ))}
+            </>
+        );
     }
 
-    useEffect(() => {
-      setCurrentWorkout();
-    }, []);
-
-    return (
-      <>
-        {exercises?.map((exercise) => (
-          <ExerciseComponent
-            key={crypto.randomUUID()}
-            exerciseId={exercise.id}
-            workoutId={exercise.workoutId}
-          />
-        ))}
-      </>
-    );
-  }
-
-  return { Exercises };
+    return { Exercises };
 }
