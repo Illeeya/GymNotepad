@@ -7,39 +7,37 @@ import { bindActionCreators } from "redux";
 import { actionCreators } from "../../State";
 import { useEffect } from "react";
 
-export default function useWorkoutModalView() {
+export default function useWorkoutModalView(workoutId: string) {
     //
-    function Exercises(workoutId: string) {
-        const workouts = useSelector((state: State) => state.workouts.workouts);
+    const workouts = useSelector((state: State) => state.workouts.workouts);
 
-        const dispatch = useDispatch();
-        const { modifyCurrentWorkout } = bindActionCreators(actionCreators, dispatch);
+    const dispatch = useDispatch();
+    const { modifyCurrentWorkout } = bindActionCreators(actionCreators, dispatch);
 
-        const currentWorkout = useSelector((state: State) => state.currentWorkout);
+    const currentWorkout = useSelector((state: State) => state.currentWorkout);
 
-        const { pickedYear, pickedMonth, pickedDay } = useSelector(
-            (state: State) => state.datapicker
-        );
+    const { pickedYear, pickedMonth, pickedDay } = useSelector(
+        (state: State) => state.datapicker
+    );
 
+    useEffect(() => {
+        setCurrentWorkout();
+    }, []);
+
+    function setCurrentWorkout() {
+        const _date = new Date(pickedYear, pickedMonth, pickedDay + 1);
+        const workout: Workout = workouts.find((workout) => workout.id == workoutId) || {
+            id: crypto.randomUUID(),
+            ownerId: 1,
+            type: "",
+            date: _date.toISOString().split("T")[0],
+            exercises: [],
+        };
+        modifyCurrentWorkout(workout);
+    }
+
+    const Exercises = () => {
         const exercises: Exercise[] | undefined = currentWorkout?.exercises;
-
-        console.log(currentWorkout);
-
-        function setCurrentWorkout() {
-            const _date = new Date(pickedYear, pickedMonth, pickedDay + 1);
-            const workout: Workout = workouts.find((workout) => workout.id == workoutId) || {
-                id: crypto.randomUUID(),
-                ownerId: 1,
-                type: "",
-                date: _date.toISOString().split("T")[0],
-                exercises: [],
-            };
-            modifyCurrentWorkout(workout);
-        }
-
-        useEffect(() => {
-            setCurrentWorkout();
-        }, []);
 
         return (
             <>
@@ -52,7 +50,24 @@ export default function useWorkoutModalView() {
                 ))}
             </>
         );
+    };
+
+    function addNewExercise() {
+        console.log(currentWorkout?.exercises);
+        const newExercise: Exercise = {
+            workoutId: currentWorkout!.id,
+            id: crypto.randomUUID(),
+            name: "",
+            reps: 0,
+            series: 0,
+            weight: 0,
+            bar: null,
+        };
+        modifyCurrentWorkout({
+            ...currentWorkout!,
+            exercises: [...currentWorkout!.exercises, newExercise],
+        });
     }
 
-    return { Exercises };
+    return { Exercises, addNewExercise };
 }

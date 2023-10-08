@@ -9,22 +9,28 @@ import { syncWorkout } from "../../api/Workouts/WorkoutsApi";
 import { ToastContainer } from "react-toastify";
 
 export default function ModalView() {
-  const { workoutId } = useSelector((state: State) => state.workoutModal);
-  const { Exercises } = useWorkoutModalView();
+    const { workoutId } = useSelector((state: State) => state.workoutModal);
+    const { Exercises, addNewExercise } = useWorkoutModalView(workoutId);
 
-  return (
-    <div className={style.mainContainer}>
-      <Navigation></Navigation>
-      {/* {workoutId == 0 ? (
+    return (
+        <div className={style.mainContainer}>
+            <Navigation></Navigation>
+            {/* {workoutId == 0 ? (
         <div>WRONG ID</div>
       ) : ( */}
-      <>
-        <MainInfo></MainInfo>
-        {Exercises(workoutId)}
-        {Button("Add", () => {}, "Add exercise")}
-      </>
-      <ToastContainer />
-      {/* )} */}
-    </div>
-  );
+            <>
+                <MainInfo></MainInfo>
+                <Exercises />
+                {Button(
+                    "Add",
+                    () => {
+                        addNewExercise();
+                    },
+                    "Add exercise"
+                )}
+            </>
+            <ToastContainer />
+            {/* )} */}
+        </div>
+    );
 }
