@@ -1,58 +1,37 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../../State/Reducers";
-import { Exercise } from "../../../Types/Workout";
 import { actionCreators } from "../../../State";
 import { bindActionCreators } from "redux";
+import { Exercise } from "../../../Types/Workout";
 
 type ExerciseProps = {
     exerciseId: string;
     workoutId: string;
+    isCollapsed?: boolean;
 };
 
-// type ExerciseData = {
-//     workoutId: string;
-//     id: string;
-//     name: string;
-//     reps: number | string;
-//     series: number | string;
-//     weight: number | string;
-//     bar: null | number;
-// };
 export default function useExercise(props: ExerciseProps) {
     const dispatch = useDispatch();
     const { modifyCurrentWorkout } = bindActionCreators(actionCreators, dispatch);
     const currentWorkout = useSelector((state: State) => state.currentWorkout);
 
-    // function getExerciseData() {
-    //     return workouts
-    //         .find((workout) => workout.id == props.workoutId)
-    //         ?.exercises.find((exercise: Exercise) => exercise.id == props.exerciseId);
-    // }
+    function getExerciseData() {
+        console.log(currentWorkout!.exercises.find((x) => x.id === props.exerciseId));
+        return currentWorkout!.exercises.find((x) => x.id === props.exerciseId);
+    }
 
-    // const [exerciseData, setExerciseData] = useState<ExerciseData>(
-    //     getExerciseData() || {
-    //         workoutId: crypto.randomUUID(),
-    //         id: crypto.randomUUID(),
-    //         name: "",
-    //         reps: "",
-    //         series: "",
-    //         weight: "",
-    //         bar: null,
-    //     }
-    // );
-
-    const currentExercise = currentWorkout!.exercises.find((x) => x.id === props.exerciseId);
-
-    const exerciseData = {
-        workoutId: currentExercise?.workoutId || crypto.randomUUID(),
-        id: currentExercise?.id || crypto.randomUUID(),
-        name: currentExercise?.name || "",
-        reps: currentExercise?.reps || "",
-        series: currentExercise?.series || "",
-        weight: currentExercise?.weight || "",
-        bar: currentExercise?.bar || null,
-    };
+    const [exerciseData, setExerciseData] = useState<Exercise>(
+        getExerciseData() || {
+            workoutId: crypto.randomUUID(),
+            id: crypto.randomUUID(),
+            name: "",
+            reps: "",
+            series: "",
+            weight: "",
+            bar: null,
+        }
+    );
 
     const max: number = getMax();
     const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
@@ -74,28 +53,40 @@ export default function useExercise(props: ExerciseProps) {
     }
 
     const handleDataChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
-        //setExerciseData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        setExerciseData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    };
 
+    const handleOnBlurUpdate = (e: ChangeEvent<HTMLInputElement>) => {
+        changeCurrentExercise(e.target.name, e.target.value);
+    };
+
+    function changeCurrentExercise(name: string, value: any) {
         const workout = currentWorkout!;
         let exercises = currentWorkout!.exercises;
 
         const exercise = exercises.find((x) => x.id === exerciseData.id);
         if (exercise) {
-            const _exercise = { ...exercise, [e.target.name]: e.target.value };
+            const _exercise = { ...exercise, [name]: value };
             exercises = exercises.map((x) => (x.id == exerciseData.id ? _exercise : x));
         } else {
             exercises.push({
                 ...exerciseData,
             });
         }
-        console.log("s");
+        console.log(name, value);
         modifyCurrentWorkout({ ...workout, exercises: exercises });
-    };
+    }
 
-    const switchCollapse = () => {
+    const switchCollapse = useCallback(() => {
         setIsCollapsed((prev) => !prev);
-    };
+    }, []);
 
-    return { exerciseData, max, handleDataChange, switchCollapse, isCollapsed };
+    return {
+        exerciseData,
+        max,
+        handleDataChange,
+        switchCollapse,
+        handleOnBlurUpdate,
+        isCollapsed,
+    };
 }

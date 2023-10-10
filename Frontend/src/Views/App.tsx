@@ -9,31 +9,31 @@ import { Loader } from "./Loader/Loader";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 function App() {
-  const { showCallendar, switchView } = useApp();
-  const isModalOpen = useSelector((state: State) => state.workoutModal.isOpen);
-  const isDataLoaded = useSelector((state: State) => state.workouts.isLoaded);
+    const { showCallendar, switchView } = useApp();
+    const isModalOpen = useSelector((state: State) => state.workoutModal.isOpen);
+    const isDataLoaded = useSelector((state: State) => state.workouts.isLoaded);
 
-  return (
-    <div className={style.mainContainer}>
-      {isModalOpen ? (
-        <ModalView />
-      ) : (
-        <>
-          <button className={style.switchButton} onClick={() => switchView()}>
-            {showCallendar ? "Workout List" : "Workout Callendar"}
-          </button>
-          {!isDataLoaded ? (
-            <Loader />
-          ) : showCallendar ? (
-            <CallendarView></CallendarView>
-          ) : (
-            <ListView></ListView>
-          )}
-        </>
-      )}
-      <ToastContainer />
-    </div>
-  );
+    return (
+        <div className={style.mainContainer}>
+            {isModalOpen ? (
+                <ModalView />
+            ) : (
+                <>
+                    <button className={style.switchButton} onClick={() => switchView()}>
+                        {showCallendar ? "Workout List" : "Workout Callendar"}
+                    </button>
+                    {!isDataLoaded ? (
+                        <Loader />
+                    ) : showCallendar ? (
+                        <CallendarView></CallendarView>
+                    ) : (
+                        <ListView></ListView>
+                    )}
+                </>
+            )}
+            <ToastContainer />
+        </div>
+    );
 }
 
 export default App;

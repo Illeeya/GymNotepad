@@ -5,6 +5,7 @@ type InputTypes = "text" | "number";
 export default function Input(
     value: any,
     onChange: (e: ChangeEvent<HTMLInputElement>) => void,
+    onBlur: (e: ChangeEvent<HTMLInputElement>) => void,
     name: string,
     type: InputTypes,
     placeholder: string,
@@ -15,6 +16,7 @@ export default function Input(
             className={style.input}
             value={value ?? undefined}
             onChange={onChange}
+            onBlur={onBlur}
             name={name}
             type={type}
             placeholder={placeholder}

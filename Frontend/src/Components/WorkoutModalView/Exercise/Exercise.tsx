@@ -8,8 +8,14 @@ type ExerciseProps = {
 };
 
 const Exercise = (props: ExerciseProps) => {
-    const { exerciseData, max, handleDataChange, switchCollapse, isCollapsed } =
-        useExercise(props);
+    const {
+        exerciseData,
+        max,
+        handleDataChange,
+        handleOnBlurUpdate,
+        switchCollapse,
+        isCollapsed,
+    } = useExercise(props);
 
     return (
         <div className={style.mainContainer}>
@@ -17,6 +23,7 @@ const Exercise = (props: ExerciseProps) => {
                 className={[style.collapserPart, style.collapserNameInput].join(" ")}
                 value={exerciseData.name}
                 onChange={handleDataChange}
+                onBlur={handleOnBlurUpdate}
                 name="name"
                 type="text"
                 placeholder="Exercise name..."
@@ -27,6 +34,7 @@ const Exercise = (props: ExerciseProps) => {
                     {Input(
                         exerciseData.reps ?? undefined,
                         handleDataChange,
+                        handleOnBlurUpdate,
                         "reps",
                         "number",
                         "Reps"
@@ -34,6 +42,7 @@ const Exercise = (props: ExerciseProps) => {
                     {Input(
                         exerciseData.series ?? undefined,
                         handleDataChange,
+                        handleOnBlurUpdate,
                         "series",
                         "number",
                         "Series"
@@ -43,7 +52,8 @@ const Exercise = (props: ExerciseProps) => {
                     {Input(
                         exerciseData.bar ?? undefined,
                         handleDataChange,
-                        "barWeight",
+                        handleOnBlurUpdate,
+                        "bar",
                         "number",
                         "Bar weight",
                         0.1
@@ -52,6 +62,7 @@ const Exercise = (props: ExerciseProps) => {
                     {Input(
                         exerciseData.weight ?? undefined,
                         handleDataChange,
+                        handleOnBlurUpdate,
                         "weight",
                         "number",
                         "Weight",
@@ -67,9 +78,18 @@ const Exercise = (props: ExerciseProps) => {
                     kg
                 </p>
                 <p className={style.label}>Max:</p>
-                <div className={style.maxWrapper}>
-                    {Input(max ?? undefined, () => {}, "max", "number", "Max", 0.1)}
-                </div>
+                <p className={style.label}>{max}</p>
+                {/* <div className={style.maxWrapper}>
+                    {Input(
+                        max ?? undefined,
+                        () => {},
+                        () => {},
+                        "max",
+                        "number",
+                        "Max",
+                        0.1
+                    )}
+                </div> */}
             </div>
             <button
                 onClick={switchCollapse}

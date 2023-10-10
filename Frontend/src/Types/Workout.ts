@@ -11,8 +11,8 @@ export interface Exercise {
     workoutId: string;
     id: string;
     name: string;
-    reps: number | string;
-    series: number | string;
-    weight: number | string;
+    reps: number | string | null;
+    series: number | string | null;
+    weight: number | string | null;
     bar: null | number;
 }

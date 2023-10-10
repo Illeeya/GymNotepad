@@ -14,13 +14,19 @@ export default function useWorkoutModalView(workoutId: string) {
     const dispatch = useDispatch();
     const { modifyCurrentWorkout } = bindActionCreators(actionCreators, dispatch);
 
-    const currentWorkout = useSelector((state: State) => state.currentWorkout);
+    const currentWorkout = useSelector(
+        (state: State) => state.currentWorkout,
+        (prev, next) => {
+            return prev?.id === next?.id && prev?.exercises.length === next?.exercises.length;
+        }
+    );
 
     const { pickedYear, pickedMonth, pickedDay } = useSelector(
         (state: State) => state.datapicker
     );
 
     useEffect(() => {
+        console.log("DOING IT");
         setCurrentWorkout();
     }, []);
 
@@ -58,9 +64,9 @@ export default function useWorkoutModalView(workoutId: string) {
             workoutId: currentWorkout!.id,
             id: crypto.randomUUID(),
             name: "",
-            reps: 0,
-            series: 0,
-            weight: 0,
+            reps: null,
+            series: null,
+            weight: null,
             bar: null,
         };
         modifyCurrentWorkout({

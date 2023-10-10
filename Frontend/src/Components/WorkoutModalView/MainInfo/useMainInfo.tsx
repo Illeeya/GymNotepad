@@ -15,7 +15,10 @@ export default function useMainInfo() {
 
     const today = new Date();
     const workoutType = currentWorkout?.type || "";
-    const workoutDate = currentWorkout?.date || today.toISOString().split("T")[0];
+    const workoutDate =
+        currentWorkout?.date.split("T")[0] || today.toISOString().split("T")[0];
+
+    console.log(workoutDate);
 
     function handleDataChange(e: ChangeEvent<HTMLInputElement>) {
         const workout: Workout = { ...currentWorkout, [e.target.name]: e.target.value };
