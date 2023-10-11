@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
 import style from "./inputStyle.module.css";
-type InputTypes = "text" | "number";
+type InputTypes = "text" | "number" | "password" | "submit" | "email";
 
 export default function Input(
     value: any,

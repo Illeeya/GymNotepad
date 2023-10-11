@@ -1,17 +1,20 @@
 import { useSelector } from "react-redux";
-import style from "./appStyle.module.css";
-import { State } from "../State/Reducers";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
-import MainView from "./Main/MainView";
-import AuthView from "./Auth/AuthView";
-function App() {
-    const loggedIn = useSelector((state: State) => state.authentication.loggedIn);
+import CallendarView from "../CallendarView/CallendarView";
+import ListView from "../ListView/ListView";
+import ModalView from "../WorkoutModalView/WorkoutModalView";
+import style from "./mainViewStyle.module.css";
+import { useApp } from "../useApp";
+import { State } from "../../State/Reducers";
+import { Loader } from "../Loader/Loader";
+
+export default function MainView() {
+    const { showCallendar, switchView } = useApp();
+    const isModalOpen = useSelector((state: State) => state.workoutModal.isOpen);
+    const isDataLoaded = useSelector((state: State) => state.workouts.isLoaded);
 
     return (
         <div className={style.mainContainer}>
-            {loggedIn ? <MainView /> : <AuthView />}
-            {/* {isModalOpen ? (
+            {isModalOpen ? (
                 <ModalView />
             ) : (
                 <>
@@ -26,10 +29,7 @@ function App() {
                         <ListView></ListView>
                     )}
                 </>
-            )} */}
-            <ToastContainer />
+            )}
         </div>
     );
 }
-
-export default App;
