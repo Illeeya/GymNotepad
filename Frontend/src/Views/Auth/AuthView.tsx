@@ -14,11 +14,14 @@ export default function AuthView() {
     const { mode, changeMode } = useAuthView();
 
     return (
-        <div className={[style.mainContainer, style.centerFlex].join(" ")}>
-            <h1>{mode}</h1>
-            <h1>↽⇁</h1>
-
-            <form className={style.centerFlex} onSubmit={logIn}>
+        <div className={[style.mainContainer, style.centeredGridMain].join(" ")}>
+            <h1 className={style.h1}>{"Welcome" + (mode == "Login" ? " back!" : "")}</h1>
+            <form
+                className={
+                    mode == "Login" ? style.centerGridFormLogin : style.centerGridFormRegister
+                }
+                onSubmit={logIn}
+            >
                 {Input(
                     undefined,
                     () => {},
@@ -45,7 +48,7 @@ export default function AuthView() {
                     "Password..."
                 )}
                 {Input(
-                    "Login",
+                    `${mode == "Login" ? "Login →" : "Register"}`,
                     () => {},
                     () => {},
                     "submit",
@@ -53,8 +56,16 @@ export default function AuthView() {
                     "Submit"
                 )}
             </form>
-
-            <button onClick={changeMode}>{mode === "Login" ? "Register" : "Login"}</button>
+            <div className={style.bottomText}>
+                <p>
+                    {mode === "Login"
+                        ? "Don't have an account? "
+                        : "With existing account try "}
+                </p>
+                <button className={style.logRegButton} onClick={changeMode}>
+                    {mode === "Login" ? "Register for free" : "Login"}
+                </button>
+            </div>
         </div>
     );
 }

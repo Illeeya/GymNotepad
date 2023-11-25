@@ -1,7 +1,35 @@
 .mainContainer {
     height: 100%;
     width: 100%;
-    background-color: #555;
+    background: url("/loginBackground.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.h1 {
+    font-size: 4rem;
+}
+
+.centeredGridMain {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 30% 60% 10%;
+    place-items: center;
+}
+
+.centerGridFormLogin {
+    height: 60%;
+    display: grid;
+    place-items: center;
+    grid-template-rows: 25% 25% 50%;
+}
+
+.centerGridFormRegister {
+    height: 60%;
+    display: grid;
+    place-items: center;
+    grid-template-rows: 15% 15% 15% 40%;
 }
 
 .centerFlex {
@@ -9,4 +37,25 @@
     justify-content: center;
     place-items: center;
     flex-direction: column;
+}
+
+.bottomText {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    place-items: center;
+}
+
+.logRegButton {
+    /* width: 90%; */
+    /* font-size: 1rem; */
+    color: aliceblue;
+    background-color: #555;
+    border: 1px solid aliceblue;
+    border-radius: 20px;
+    padding: 0.5rem;
+    appearance: textfield;
+    margin: .2rem 0;
+    text-align: center;
 }
